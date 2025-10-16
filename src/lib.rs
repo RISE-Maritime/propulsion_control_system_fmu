@@ -19,11 +19,9 @@ pub struct PropulsionControlSystem {
 }
 
 fn calculate_relative_value(actual: f64, setpoint: f64) -> f64 {
-    if actual == 0.0 {
-        0.0
-    } else {
-        (setpoint - actual) / actual
-    }
+    let actual = f64::max(actual, 1e-6); // Prevent division by zero
+
+    (setpoint - actual) / actual
 }
 
 impl FmuFunctions for PropulsionControlSystem {
@@ -181,6 +179,23 @@ mod tests {
 
         sys.do_step(0.0, 1.0);
         assert_eq!(sys.mode, 1);
+        assert!(sys.lever_order > 0.5);
+    }
+
+    #[test]
+    fn test_zero_actual_consumption_results_in_minimum_consumption_mode() {
+        let mut sys = PropulsionControlSystem {
+            minimum_consumption_kgps: 5.0,
+            setpoint_consumption_kgps: 10.0,
+            setpoint_speed_mps: 10.0,
+            actual_consumption_kgps: 0.0,
+            actual_speed_mps: 11.0,
+            lever_order: 0.5,
+            ..Default::default()
+        };
+
+        sys.do_step(0.0, 1.0);
+        assert_eq!(sys.mode, 0);
         assert!(sys.lever_order > 0.5);
     }
 }
