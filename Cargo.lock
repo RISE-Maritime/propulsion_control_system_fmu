@@ -24,17 +24,18 @@ checksum = "2fd1289c04a9ea8cb22300a459a72a385d7c73d3259e2ed7dcb2af674838cfa9"
 
 [[package]]
 name = "fmu_from_struct"
-version = "0.1.1"
-source = "git+https://github.com/jarlekramer/fmu_from_struct.git#dcb1916154782b56b14a604d6a4858afccd4373e"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b141044cd6eca93620557b4ed6b64349b130ead31827c71e24b1f725c7ef29f8"
 dependencies = [
  "fmu_from_struct_derive",
 ]
 
 [[package]]
 name = "fmu_from_struct_derive"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8b42e35946bd51d40a7f93b6967ca0ea2488a212fba51d05d47f3920dea4aca"
+checksum = "d1a93cafb6f8bc03b4281143c59aee9a24ddf9f0144449068ce32f9be85fc9aa"
 dependencies = [
  "proc-macro2",
  "quote",
